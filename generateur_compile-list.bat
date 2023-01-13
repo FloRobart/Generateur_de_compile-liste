@@ -7,6 +7,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
         SET "extensionValide=txt"
         SET "nomFichierSortie=.\compile.list"
 
+
         :: Suppression du fichier de choix de dossier si il existe ::
         IF EXIST "%nomFichierChoixDossier%" del "%nomFichierChoixDossier%"
 
