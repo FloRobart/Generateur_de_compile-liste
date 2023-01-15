@@ -20,8 +20,10 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 
         echo %nomFichierChoixDossier%
         echo dossier = inputbox ^("Veuillez entrez le dossier racine à partir du quel la compile.list vas être générer"^, "Séléctionner un dossier"^) > %nomFichierChoixDossier%
-        echo prog = "generateur_compile-list.bat """ ^& dossier ^& """" >> %nomFichierChoixDossier%
-        echo WScript.CreateObject ^("Wscript.shell"^).Run^(prog^), ^0 >> %nomFichierChoixDossier%
+        echo if dossier ^<^> "" >> %nomFichierChoixDossier%
+        echo    prog = "generateur_compile-list.bat """ ^& dossier ^& """" >> %nomFichierChoixDossier%
+        echo    WScript.CreateObject ^("Wscript.shell"^).Run^(prog^), ^0 >> %nomFichierChoixDossier%
+        echo end if >> %nomFichierChoixDossier%
 
         start %nomFichierChoixDossier%
     )
