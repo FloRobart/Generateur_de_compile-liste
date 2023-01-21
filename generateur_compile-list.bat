@@ -2,7 +2,7 @@
 SETLOCAL ENABLEDELAYEDEXPANSION
     SET "nomFichierChoixDossier=choixDossier.vbs"
 
-    IF EXIST "%~1" (
+    IF EXIST "%~1" 2>nul >nul (
         SET "source=%~1"
         SET "extensionValide=txt"
         SET "nomFichierSortie=.\compile.list"
@@ -11,16 +11,14 @@ SETLOCAL ENABLEDELAYEDEXPANSION
         :: Suppression du fichier de choix de dossier si il existe ::
         IF EXIST "%nomFichierChoixDossier%" del "%nomFichierChoixDossier%"
 
-        echo.> .\compile.list
+        if exist "%nomFichierSortie%" ( del /Q "%nomFichierSortie%" )
 
         call :listerDossiers
         call :ListerFichiers
     ) else (
-        
 
-        echo %nomFichierChoixDossier%
         echo dossier = inputbox ^("Veuillez entrez le dossier racine à partir du quel la compile.list vas être générer"^, "Séléctionner un dossier"^) > %nomFichierChoixDossier%
-        echo if dossier ^<^> "" >> %nomFichierChoixDossier%
+        echo if dossier ^<^> "" then>> %nomFichierChoixDossier%
         echo    prog = "generateur_compile-list.bat """ ^& dossier ^& """" >> %nomFichierChoixDossier%
         echo    WScript.CreateObject ^("Wscript.shell"^).Run^(prog^), ^0 >> %nomFichierChoixDossier%
         echo end if >> %nomFichierChoixDossier%
